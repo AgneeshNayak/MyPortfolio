@@ -1,0 +1,98 @@
+/* ===== Design Tokens ===== */
+:root {
+  /* --- Colors --- */
+  --color-royal-purple: #7C3AED;
+  --color-royal-purple-light: #A78BFA;
+  --color-royal-purple-dark: #5B21B6;
+  --color-gold: #FCD34D;
+  --color-gold-light: #FDE68A;
+  --color-gold-dark: #F59E0B;
+  --color-deep-navy: #1E1B4B;
+  --color-deep-navy-light: #312E81;
+  --color-cream: #FFFBEB;
+  --color-cream-dark: #FEF3C7;
+
+  /* --- Scene Colors --- */
+  --scene-dawn: rgb(255, 200, 150);
+  --scene-exploration: rgb(100, 200, 255);
+  --scene-creation: rgb(255, 150, 100);
+  --scene-growth: rgb(255, 200, 100);
+  --scene-peak: rgb(200, 150, 255);
+
+  /* --- Typography --- */
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+
+  /* --- Responsive Type Scale (clamp) --- */
+  --text-hero: clamp(2.25rem, 6vw, 4.5rem);
+  --text-h2: clamp(1.75rem, 4vw, 3rem);
+  --text-h3: clamp(1.25rem, 2.5vw, 2rem);
+  --text-body: clamp(0.95rem, 1.2vw, 1.125rem);
+  --text-caption: 0.75rem;
+  --text-small: 0.875rem;
+
+  /* --- Spacing (8px base) --- */
+  --space-xs: 0.25rem;   /* 4px */
+  --space-sm: 0.5rem;    /* 8px */
+  --space-md: 1rem;      /* 16px */
+  --space-lg: 1.5rem;    /* 24px */
+  --space-xl: 2rem;      /* 32px */
+  --space-2xl: 3rem;     /* 48px */
+  --space-3xl: 4rem;     /* 64px */
+  --space-4xl: 6rem;     /* 96px */
+
+  /* --- Border Radius --- */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
+
+  /* --- Shadows --- */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.2);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.3);
+  --shadow-glow-purple: 0 0 20px rgba(124, 58, 237, 0.4);
+  --shadow-glow-gold: 0 0 20px rgba(252, 211, 77, 0.4);
+
+  /* --- Transitions --- */
+  --transition-fast: 150ms ease;
+  --transition-base: 200ms ease;
+  --transition-slow: 300ms ease;
+  --transition-scene: 1500ms ease-in-out;
+
+  /* --- Z-Index Scale --- */
+  --z-background: -10;
+  --z-content: 1;
+  --z-overlay: 10;
+  --z-nav: 50;
+  --z-modal: 100;
+
+  /* --- Theme (Dark Default) --- */
+  --bg-primary: var(--color-deep-navy);
+  --bg-secondary: var(--color-deep-navy-light);
+  --text-primary: var(--color-cream);
+  --text-secondary: rgba(255, 251, 235, 0.7);
+  --text-muted: rgba(255, 251, 235, 0.5);
+  --accent-primary: var(--color-royal-purple);
+  --accent-secondary: var(--color-gold);
+  --overlay-dark: rgba(0, 0, 0, 0.4);
+  --overlay-light: rgba(0, 0, 0, 0.2);
+  --glass-bg: rgba(30, 27, 75, 0.6);
+  --glass-border: rgba(255, 251, 235, 0.1);
+}
+
+/* Light theme overrides */
+[data-theme="light"] {
+  --bg-primary: #FFFFFF;
+  --bg-secondary: #F8F7FF;
+  --text-primary: var(--color-deep-navy);
+  --text-secondary: rgba(30, 27, 75, 0.7);
+  --text-muted: rgba(30, 27, 75, 0.5);
+  --overlay-dark: rgba(255, 255, 255, 0.2);
+  --overlay-light: rgba(255, 255, 255, 0.1);
+  --glass-bg: rgba(255, 255, 255, 0.6);
+  --glass-border: rgba(30, 27, 75, 0.1);
+}
