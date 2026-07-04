@@ -71,7 +71,7 @@ export interface Stats {
 
 export const personalInfo: PersonalInfo = {
   name: 'Agneesh A Nayak',
-  title: 'Frontend & Full-Stack Developer',
+  title: 'Full Stack Web Developer',
   tagline:
     'From Mangalore, I build platforms that connect people, places, and problems to real solutions.',
   location: 'Mangalore, India',

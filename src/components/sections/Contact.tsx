@@ -16,7 +16,7 @@ interface FormErrors {
   message?: string;
 }
 
-type SubmitStatus = 'idle' | 'success' | 'error';
+type SubmitStatus = 'idle' | 'submitting' | 'success' | 'error';
 
 function validateForm(form: FormState): FormErrors {
   const errors: FormErrors = {};
@@ -56,18 +56,39 @@ export function Contact() {
     setErrors((prev) => ({ ...prev, [field]: newErrors[field] }));
   };
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     const validationErrors = validateForm(formData);
     setErrors(validationErrors);
     setTouched({ name: true, email: true, message: true });
 
     if (Object.keys(validationErrors).length === 0) {
-      // TODO: Wire to email service (e.g., EmailJS, Formspree, or custom backend)
-      setSubmitStatus('success');
-      setFormData({ name: '', email: '', message: '' });
-      setTouched({});
-      setTimeout(() => setSubmitStatus('idle'), 5000);
+      setSubmitStatus('submitting');
+      try {
+        const response = await fetch('https://formspree.io/f/xnjklkzv', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+          },
+          body: JSON.stringify({
+            name: formData.name,
+            email: formData.email,
+            message: formData.message,
+          }),
+        });
+
+        if (response.ok) {
+          setSubmitStatus('success');
+          setFormData({ name: '', email: '', message: '' });
+          setTouched({});
+          setTimeout(() => setSubmitStatus('idle'), 5000);
+        } else {
+          setSubmitStatus('error');
+        }
+      } catch {
+        setSubmitStatus('error');
+      }
     }
   };
 
@@ -311,6 +332,7 @@ export function Contact() {
                 <input
                   id="contact-name"
                   type="text"
+                  name="name"
                   value={formData.name}
                   onChange={(e) => handleChange('name', e.target.value)}
                   onBlur={() => handleBlur('name')}
@@ -357,6 +379,7 @@ export function Contact() {
                 <input
                   id="contact-email"
                   type="email"
+                  name="email"
                   value={formData.email}
                   onChange={(e) => handleChange('email', e.target.value)}
                   onBlur={() => handleBlur('email')}
@@ -402,6 +425,7 @@ export function Contact() {
                 </label>
                 <textarea
                   id="contact-message"
+                  name="message"
                   value={formData.message}
                   onChange={(e) => handleChange('message', e.target.value)}
                   onBlur={() => handleBlur('message')}
@@ -435,14 +459,17 @@ export function Contact() {
               {/* Submit */}
               <button
                 type="submit"
+                disabled={submitStatus === 'submitting'}
                 className="btn-primary"
                 style={{
                   width: '100%',
                   justifyContent: 'center',
                   padding: 'var(--space-md)',
+                  opacity: submitStatus === 'submitting' ? 0.7 : 1,
+                  cursor: submitStatus === 'submitting' ? 'not-allowed' : 'pointer',
                 }}
               >
-                Send Message
+                {submitStatus === 'submitting' ? 'Sending...' : 'Send Message'}
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <line x1="22" x2="11" y1="2" y2="13" />
                   <polygon points="22 2 15 22 11 13 2 9 22 2" />

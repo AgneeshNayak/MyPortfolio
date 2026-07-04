@@ -75,8 +75,8 @@ export function Origin() {
           <h2 style={{ marginTop: 'var(--space-sm)' }}>
             <span className="gradient-text">Origin Story</span>
           </h2>
-          <p style={{ marginTop: 'var(--space-md)', maxWidth: '36rem', margin: 'var(--space-md) auto 0' }}>
-            The academic journey that shaped a full-stack developer.
+          <p style={{ marginTop: 'var(--space-md)', maxWidth: '42rem', margin: 'var(--space-md) auto 0', lineHeight: 1.6, fontSize: 'var(--text-body)' }}>
+            I am a Computer Science Engineering student at Canara engineering college and aspiring Software Engineer with a passion for building scalable, user-focused web applications. Driven by curiosity and inspired by innovation, I enjoy creating solutions that combine creativity with purpose. Every challenge is an opportunity to learn, grow, and make a meaningful impact.
           </p>
         </motion.div>
 

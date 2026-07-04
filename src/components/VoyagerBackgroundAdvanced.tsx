@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
+import { useBreakpoint } from '@/hooks/useBreakpoint';
 import {
   getSceneColor,
   getSceneIndex,
@@ -90,13 +91,14 @@ function generateDustParticles(count: number): DustParticle[] {
 /* ===== Component ===== */
 export function VoyagerBackgroundAdvanced() {
   const reducedMotion = usePrefersReducedMotion();
+  const { isMobile } = useBreakpoint();
   const [scrollProgress, setScrollProgress] = useState(0);
   const rafRef = useRef<number>(0);
   const containerRef = useRef<HTMLDivElement>(null);
 
   const dustParticles = useMemo(
-    () => (reducedMotion ? [] : generateDustParticles(20)),
-    [reducedMotion]
+    () => (reducedMotion || isMobile ? [] : generateDustParticles(20)),
+    [reducedMotion, isMobile]
   );
 
   const handleScroll = useCallback(() => {
@@ -122,11 +124,10 @@ export function VoyagerBackgroundAdvanced() {
   const sceneColor = getSceneColor(scrollProgress);
   const colorStr = rgbToString(sceneColor);
   const nextSceneIndex = Math.min(sceneIndex + 1, 4);
-  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
   const parallaxScale = isMobile ? 0.4 : 0.8;
 
   // Camera scale effect
-  const cameraScale = 1 + transitionProgress * 0.05;
+  const cameraScale = isMobile ? 1 : 1 + transitionProgress * 0.05;
 
   return (
     <div
@@ -151,7 +152,8 @@ export function VoyagerBackgroundAdvanced() {
 
         if (sceneOpacity <= 0) return null;
 
-        const layers = sceneLayers[sIdx];
+        // On mobile, only render the first layer of each scene to cut paint cost by 75%
+        const layers = isMobile ? [sceneLayers[sIdx][0]] : sceneLayers[sIdx];
 
         return (
           <div
@@ -160,11 +162,11 @@ export function VoyagerBackgroundAdvanced() {
               position: 'absolute',
               inset: 0,
               opacity: sceneOpacity,
-              transition: reducedMotion ? 'none' : `opacity ${1500}ms ease-in-out`,
+              transition: (reducedMotion || isMobile) ? 'none' : `opacity ${1500}ms ease-in-out`,
             }}
           >
             {layers.map((layer, lIdx) => {
-              const parallaxOffset = reducedMotion
+              const parallaxOffset = (reducedMotion || isMobile)
                 ? 0
                 : window.scrollY * (1 - layer.depth) * parallaxScale;
 
@@ -173,18 +175,18 @@ export function VoyagerBackgroundAdvanced() {
                   key={lIdx}
                   style={{
                     position: 'absolute',
-                    inset: '-10%',
+                    inset: isMobile ? '0' : '-10%',
                     backgroundImage: `url(${img})`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                     opacity: layer.opacity,
-                    mixBlendMode: layer.blendMode as React.CSSProperties['mixBlendMode'],
-                    transform: reducedMotion
+                    mixBlendMode: isMobile ? 'normal' : (layer.blendMode as React.CSSProperties['mixBlendMode']),
+                    transform: (reducedMotion || isMobile)
                       ? 'none'
                       : `translate3d(0, ${-parallaxOffset * 0.1}px, 0) scale(${layer.scale * cameraScale})`,
-                    willChange: reducedMotion ? 'auto' : 'transform',
+                    willChange: (reducedMotion || isMobile) ? 'auto' : 'transform',
                     filter:
-                      lIdx > 0
+                      (!isMobile && lIdx > 0)
                         ? `blur(${lIdx * 1.5}px) brightness(${1 + lIdx * 0.1})`
                         : 'none',
                   }}
