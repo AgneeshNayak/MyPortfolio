@@ -15,6 +15,7 @@ const brandColors: Record<string, string> = {
   reactjs: '#61DAFB',
   html5: '#E34F26',
   css3: '#1572B6',
+  tailwindcss: '#06B6D4',
   vscode: '#007ACC',
   github: '#FFFFFF',
   'frontend-dev': '#61DAFB',
@@ -217,24 +218,40 @@ export function Craft() {
                       {/* Icon */}
                       <div className="skill-icon-container">
                         {logo ? (
-                          <svg
-                            className="skill-icon"
-                            viewBox={logo.viewBox}
-                            style={{
-                              color: brandColor,
-                            }}
-                          >
-                            <path 
-                              d={logo.paths} 
-                              fill={
-                                skill.icon === 'frontend-dev' 
-                                  ? 'url(#gradient-frontend-dev)' 
-                                  : skill.icon === 'fullstack-dev' 
-                                    ? 'url(#gradient-fullstack-dev)' 
-                                    : 'currentColor'
-                              } 
+                          logo.imgUrl ? (
+                            <img
+                              src={logo.imgUrl}
+                              alt={skill.name}
+                              className="skill-icon"
+                              style={{ width: '52px', height: '52px', objectFit: 'contain' }}
                             />
-                          </svg>
+                          ) : (
+                            <svg
+                              className="skill-icon"
+                              viewBox={logo.viewBox}
+                              style={{
+                                color: brandColor,
+                              }}
+                            >
+                              {logo.paths.map((p, pathIdx) => (
+                                <path
+                                  key={pathIdx}
+                                  d={p.d}
+                                  fillRule={p.fillRule || undefined}
+                                  clipRule={p.fillRule || undefined}
+                                  fill={
+                                    p.fill
+                                      ? p.fill
+                                      : skill.icon === 'frontend-dev'
+                                        ? 'url(#gradient-frontend-dev)'
+                                        : skill.icon === 'fullstack-dev'
+                                          ? 'url(#gradient-fullstack-dev)'
+                                          : 'currentColor'
+                                  }
+                                />
+                              ))}
+                            </svg>
+                          )
                         ) : (
                           <div
                             style={{

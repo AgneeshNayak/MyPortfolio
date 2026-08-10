@@ -80,7 +80,7 @@ export function Navbar() {
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-[1300px] flex items-center justify-between px-6 md:px-8 rounded-full border transition-all duration-300"
+        className="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[92%] max-w-[1300px] flex items-center justify-between px-4 sm:px-6 md:px-8 rounded-full border transition-all duration-300"
         style={{
           height: scrolled ? '64px' : '72px',
           background: isDark ? 'rgba(15, 23, 42, 0.65)' : 'rgba(255, 255, 255, 0.65)',
@@ -96,11 +96,11 @@ export function Navbar() {
         <a
           href="#hero"
           onClick={(e) => handleNavClick(e, '#hero')}
-          className="flex items-center gap-2 group select-none cursor-pointer ml-12 md:ml-24"
+          className="flex items-center gap-2 group select-none cursor-pointer ml-0 sm:ml-4 md:ml-12 lg:ml-24"
         >
           <motion.div
             whileHover={{ scale: 1.03 }}
-            className="font-sans font-extrabold tracking-tight text-white transition-all duration-300 text-lg md:text-xl"
+            className="font-sans font-extrabold tracking-tight text-white transition-all duration-300 text-base sm:text-lg md:text-xl whitespace-nowrap"
             style={{
               filter: 'drop-shadow(0 0 8px rgba(255, 255, 255, 0.15))',
             }}
@@ -163,12 +163,12 @@ export function Navbar() {
             download="Agneesh_Nayak_Resume.pdf"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.98 }}
-            className="hidden sm:flex items-center gap-3 px-8 py-3.5 rounded-full text-base font-bold group select-none transition-all duration-300"
+            className="hidden sm:flex items-center gap-2 sm:gap-3 px-5 sm:px-8 py-3 sm:py-3.5 rounded-full text-sm sm:text-base font-bold group select-none transition-all duration-300"
             style={{
               color: '#1E1B4B',
               background: '#FFFFFF',
               boxShadow: '0 4px 15px rgba(255, 255, 255, 0.1)',
-              marginRight: '48px',
+              marginRight: '0px',
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.color = '#1E1B4B';
@@ -204,7 +204,7 @@ export function Navbar() {
       {/* Mobile Fullscreen Animated Drawer */}
       <AnimatePresence>
         {mobileMenuOpen && (
-          <div className="fixed inset-0 z-100 flex justify-end md:hidden">
+          <div className="fixed inset-0 z-[100] flex justify-end md:hidden">
             {/* Backdrop Overlay */}
             <motion.div
               initial={{ opacity: 0 }}
@@ -220,7 +220,7 @@ export function Navbar() {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-              className="relative w-[280px] max-w-[85vw] h-full flex flex-col justify-between p-6 shadow-2xl border-l"
+              className="relative w-full sm:w-[280px] sm:max-w-[85vw] h-full flex flex-col justify-between p-6 shadow-2xl border-l"
               style={{
                 background: isDark ? '#050816' : '#FFFFFF',
                 borderColor: isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(30, 27, 75, 0.08)',

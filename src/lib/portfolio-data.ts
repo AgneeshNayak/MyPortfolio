@@ -132,6 +132,7 @@ export const skillCategories: SkillCategory[] = [
       { name: 'React.js', icon: 'reactjs' },
       { name: 'HTML5', icon: 'html5' },
       { name: 'CSS3', icon: 'css3' },
+      { name: 'Tailwind CSS', icon: 'tailwindcss' },
     ],
   },
   {
