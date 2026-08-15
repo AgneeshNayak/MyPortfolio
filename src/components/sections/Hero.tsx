@@ -34,7 +34,7 @@ export function Hero() {
         justifyContent: 'center',
         textAlign: 'center',
         position: 'relative',
-        paddingTop: 'calc(var(--space-3xl) + env(safe-area-inset-top, 0px))',
+        paddingTop: 'calc(140px + env(safe-area-inset-top, 0px))',
       }}
       aria-label="Hero section"
     >

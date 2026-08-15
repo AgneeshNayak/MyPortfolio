@@ -96,7 +96,7 @@ export function Navbar() {
         <a
           href="#hero"
           onClick={(e) => handleNavClick(e, '#hero')}
-          className="flex items-center gap-2 group select-none cursor-pointer ml-0 sm:ml-4 md:ml-12 lg:ml-24"
+          className="flex items-center gap-2 group select-none cursor-pointer"
         >
           <motion.div
             whileHover={{ scale: 1.03 }}
@@ -220,7 +220,7 @@ export function Navbar() {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-              className="relative w-full sm:w-[280px] sm:max-w-[85vw] h-full flex flex-col justify-between p-6 shadow-2xl border-l"
+              className="relative w-full sm:w-[300px] sm:max-w-[85vw] h-full flex flex-col p-6 shadow-2xl border-l"
               style={{
                 background: isDark ? '#050816' : '#FFFFFF',
                 borderColor: isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(30, 27, 75, 0.08)',
@@ -246,7 +246,7 @@ export function Navbar() {
               </div>
 
               {/* Navigation Links (Staggered Animation) */}
-              <nav className="flex flex-col gap-6 py-8 flex-1 justify-center">
+              <nav className="flex flex-col gap-5 pt-6 pb-8 flex-1">
                 {navItems.map((item, idx) => {
                   const isExternal = item.external;
                   const isActive = !isExternal && (
@@ -289,7 +289,7 @@ export function Navbar() {
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
-                className="pt-6 border-t flex flex-col gap-4"
+                className="pt-6 mt-auto border-t flex flex-col gap-4"
                 style={{ borderColor: isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(30, 27, 75, 0.08)' }}
               >
                 <motion.a
